@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Formated from './subcomponents/Formated';
-
-// import axios
+import Axios from 'axios';
 
 class Blog extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             blog: {}
         }
     }
 
-    // insert componentWillMount method
+    componentWillMount() { 
+        Axios.get(`/api/blog/${this.props.match.params.id}`)
+            .then(res => { 
+                this.setState({
+                    blog: res.data
+                })
+            }).catch(err => console.log(err))
+    }
 
     
     render(){
